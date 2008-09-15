@@ -1,0 +1,14 @@
+<h1>Project: <span class='identifier'><%= @project.name %></span></h1>
+<p><%= pluralize_with_count_display @project.milestones.size, 'milestone' %>, <%= pluralize_with_count_display @project.open_tickets_count, 'ticket' %></p>
+<hr />
+
+<div class="milestone">
+<% @project.milestones.each do |milestone| %>
+	<h2>Milestone: <span class='identifier'><%= milestone.title %></span></h2>
+	<ul>
+	<% @project.tickets(:q => "milestone:\"#{milestone.title}\"").each do |ticket| %>
+		<li><%= ticket.title %></li>
+	<% end %>	
+	</ul>
+<% end %>
+</div>

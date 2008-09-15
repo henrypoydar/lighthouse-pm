@@ -1,3 +1,4 @@
-lighthouse:
-  token: abcdefg
+project_settings:
+  account: project_account_name
+  api_token: abcdefg
   project_id: 123456

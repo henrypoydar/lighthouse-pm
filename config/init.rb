@@ -39,7 +39,9 @@ $KCODE = 'UTF8'
 # If you want modules and classes from libraries organized like
 # merbapp/lib/magicwand/lib/magicwand.rb to autoload,
 # uncomment this.
-# Merb.push_path(:lib, Merb.root / "lib") # uses **/*.rb as path glob.
+#Merb.push_path(:lib, Merb.root / "lib") # uses **/*.rb as path glob.
+
+require(File.dirname(__FILE__) + "/../lib/lighthouse-api/lib/lighthouse.rb")
 
 # ==== Dependencies
 
@@ -147,6 +149,11 @@ Merb::Config.use do |c|
   # You can of course use your favorite ORM instead: 
   # 'datamapper', 'sequel' or 'activerecord'.
   c[:session_store] = 'cookie'
+  
+  # Get the Lighthouse project settings
+  require 'yaml'
+  c[:lighthouse] = YAML.load_file(Merb.root / 'config' / 'lighthouse.yml')
+  
 end
 
 
@@ -190,3 +197,4 @@ end
 # And the result is:
 # irb> "wife".plural
 # => wives
+

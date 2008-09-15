@@ -21,6 +21,10 @@ body {
   padding: 15px;
 }
 
+ul { list-style-type: none; }
+
+ul li.resolved { text-decoration: line-through; }
+
 p { margin: 5px 0; }
 
 h1, h2, h3, h4 {

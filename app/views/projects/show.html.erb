@@ -7,7 +7,7 @@
 	<h2>Milestone: <span class='identifier'><%= milestone.title %></span></h2>
 	<ul>
 	<% @project.tickets(:q => "milestone:\"#{milestone.title}\"").each do |ticket| %>
-		<li><%= ticket.title %></li>
+		<li class="<%= ticket.state%>"><%= ticket.title %></li>
 	<% end %>	
 	</ul>
 <% end %>

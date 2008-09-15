@@ -24,3 +24,4 @@ A merb app for adding some rudimentary project management oversight and insight 
 * Link to tickets
 * Break down totals by user
 * Move processing functionality out of view, add processing interstitial
+* Some specs would be nice

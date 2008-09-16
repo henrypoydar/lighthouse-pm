@@ -1,4 +1,4 @@
 project_settings:
-  account: project_account_name
+  account_name: project_account_name
   api_token: abcdefg
   project_id: 123456

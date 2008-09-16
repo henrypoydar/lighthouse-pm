@@ -6,7 +6,7 @@
 <% @project.milestones.each do |milestone| %>
 	<h2>Milestone: <span class='identifier'><%= milestone.title %></span></h2>
 	<ul>
-	<% @project.tickets(:q => "milestone:\"#{milestone.title}\"").each do |ticket| %>
+	<% @project.tickets_by_milestone( milestone ).each do |ticket| %>
 		<li class="<%= ticket.state%>"><%= ticket.title %></li>
 	<% end %>	
 	</ul>

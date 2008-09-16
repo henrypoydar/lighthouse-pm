@@ -1,14 +1,12 @@
 class Projects < Application
-include Lighthouse
+
 
   def show
-
-    Lighthouse.account = Merb::Config[:lighthouse]['project_settings']['account'] 
-    Lighthouse.token = Merb::Config[:lighthouse]['project_settings']['api_token'] 
-    @project = Lighthouse::Project.find( Merb::Config[:lighthouse]['project_settings']['project_id'].to_i )
-
+    @project = LighthouseProject.new(
+      :api_token => Merb::Config[:lighthouse]['project_settings']['api_token'], 
+      :account_name => Merb::Config[:lighthouse]['project_settings']['account_name'], 
+      :project_id => Merb::Config[:lighthouse]['project_settings']['project_id'] )
     render
-
   end
   
 

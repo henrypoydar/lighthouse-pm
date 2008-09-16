@@ -18,3 +18,5 @@ Spec::Runner.configure do |config|
   config.include(Merb::Test::RouteHelper)
   config.include(Merb::Test::ControllerHelper)
 end
+
+require File.join(File.dirname(__FILE__), 'lighthouse_api_spec_helper.rb')

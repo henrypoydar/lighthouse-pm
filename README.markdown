@@ -1,6 +1,25 @@
 Lighthouse PM
 --------------
-A merb app for adding some rudimentary project management oversight and insight to Lighthouse tickets.
+
+A merb app for adding some rudimentary project management oversight and insight to Lighthouse tickets. Essentially
+produces a single web page with milestone summaries that include brief ticket listings and estimated and actual 
+development times. Also allows for inline changing of ticket titles.
+
+Assumes you are using Lighthouse to track development tasks, perhaps in addition to bugs issues. Works best
+if you setup your lighthouse tickets as follows:
+
+1.) Tickets are grouped into brief sprint-like milestones.
+
+2.) Tickets are named in a way that you can better scan the list. For example:
+
+	Component Foo - complete the Bar functionality per the FooBar story
+	Component Foo - add print CSS styles
+	Compenent Bar - spec models
+
+3.) Open tickets have estimated times, closed tickets have both estimated and actual times. For example:
+	
+	Component Foo - complete the Bar functionality per the FooBar story EST:4d ACT:5d
+
 
 ### Requirements
 * merb
@@ -12,16 +31,19 @@ A merb app for adding some rudimentary project management oversight and insight 
 * Initialize and update the submodules
 * Copy config/lighthouse.yml.sample to config/lighthouse.yml and edit
 * Run the app via merb command or over a rack compatible server
+* Modify your lighthouse tickets per summary above
+
+### Caveat
+
+Lighthouse was probably not designed to be used a project management tool on the ticket level. 
+In response to requests for time estimation functionality in the forums, the developers have said
+that they have no plans to build it.  The simplicity of Lighthouse is why I use it in the first 
+place, so I'm glad they haven't mucked it up and stuck with their original vision.  However, in
+my case, I noticed I'm clicking around too much to get insight into a project, and I do need
+some basic time tracking at the the ticket level. So here it is, a single web page for a
+project with ticket-level time tracking. YMMV.
 
 ### TODO:
-* Format project view
-* Calculate estimated and actual times from the ticket titles
-** For each milestone
-** For whole project
-* Highlight ticket that could not be parsed
-* Strike out closed tickets
-* In-place edit of ticket titles (then a button to update totals)
-* Link to tickets
-* Break down totals by user
-* Move processing functionality out of view, add processing interstitial
-* Some specs would be nice
+* Finish spec'd methods
+* Add inline editing of ticket titles
+* Consider interstitial/progress indicator for initial load times

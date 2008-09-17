@@ -11,7 +11,7 @@ class LighthouseProject
     gather_tickets_and_milestones
   end 
   
-  class TicketStruct < Struct.new( :title, :state, :estimated, :actual, :assigned_to, :milestone_index, :untimed ); end
+  class TicketStruct < Struct.new( :number, :title, :state, :estimated, :actual, :assigned_to, :milestone_index, :untimed ); end
   class MilestoneStruct < Struct.new( :index, :title ); end
   
   
@@ -29,6 +29,10 @@ class LighthouseProject
     @project_tickets.reject { |t| t.milestone_index != milestone.index }
   end
   
+  def open_tickets_by_milestone( milestone )
+    @project_tickets.reject { |t| ( t.milestone_index != milestone.index || t.state == 'resolved' ) }
+  end
+  
   def time_totals_by_milestone( milestone )
     sum_estimated_and_actual_times( tickets_by_milestone( milestone ) )
   end
@@ -42,8 +46,9 @@ class LighthouseProject
     @project_tickets = []
     @project_milestones = @project.milestones.sort_by { |m| m.due_on || Time.now + 5.years }.to_enum(:each_with_index).map { |m,i| MilestoneStruct.new( i, m.title ) }
     @project_milestones.each do |m| 
-      @project.tickets( :q => "milestone:\"#{m.title}\"").sort_by { |t| [ t.state, t.title ] }.each do |t|
+      @project.tickets( :q => "milestone:\"#{m.title}\"").sort_by { |t| [ t.state, t.title.downcase ] }.each do |t|
         @project_tickets << TicketStruct.new( 
+           t.number,
            t.title,
            t.state,
            LighthouseProject.parse_estimated_time( t.title ),
@@ -54,7 +59,6 @@ class LighthouseProject
          ) 
       end
     end
-    Merb.logger.info( @project_tickets.inspect  )
   end
 
 

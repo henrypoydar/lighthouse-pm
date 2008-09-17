@@ -21,11 +21,37 @@ body {
   padding: 15px;
 }
 
-ul { list-style-type: none; }
+ul.tickets { 
+list-style-type: none; 
+font-family: Monaco, "Courier New", monospace;
+color: #484848;
+line-height: 28px;	
+border-left: 1px solid #e1e1e1;
+border-bottom: 1px solid #e1e1e1;
+border-right: 1px solid #e1e1e1;
+}
 
-ul li.resolved { text-decoration: line-through; }
+ul.tickets li {
+height: 28px;
+border-top: 1px solid #e1e1e1;
+padding: 0 10px;
+background: #f2f2f2 url(/images/ticket_bg.gif) repeat-x top left;
+}
 
-p { margin: 5px 0; }
+ul.tickets li:hover { 
+background-color: #fff;
+background-image: none;	
+}
+
+div.milestone { margin-bottom: 15px; display: block;}
+
+table.totals { margin: 10px 0; }
+table.totals td { padding-right: 5px; }
+
+ul.tickets li.resolved { text-decoration: line-through; }
+.untimed { color: #990000; }
+
+p, ul { margin: 5px 0; }
 
 h1, h2, h3, h4 {
 	font-family: Arial, Verdana, sans-serif;

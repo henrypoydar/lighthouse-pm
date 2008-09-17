@@ -43,6 +43,15 @@ describe LighthouseProject do
     
   end
   
+  
+  describe '#open_tickets_by_milestone' do
+    
+    it "should return the unresolved tickets for a  milestone" do
+      @lighthouse_project.open_tickets_by_milestone( @lighthouse_project.milestones.first ).size.should == 4
+    end
+    
+  end
+  
   describe '#time_totals_by_milestone' do
     
     it "should provide a hash of estimated and actual totals for tickets by milestone" do

@@ -1,14 +1,32 @@
 <h1>Project: <span class='identifier'><%= @project.name %></span></h1>
-<p><%= pluralize_with_count_display @project.milestones.size, 'milestone' %>, <%= pluralize_with_count_display @project.open_tickets_count, 'ticket' %></p>
-<hr />
+<p><small><%= pluralize_with_count_display @project.milestones.size, 'milestone' %>, <%= pluralize_with_count_display @project.open_tickets_count, 'open ticket' %></small></p>
 
-<div class="milestone">
+<table class="totals">
+	<tr><td>Estimate for all open tickets: </td><td align="right"><b><%= @project.time_totals[:open][:estimated] %></b> days</td></tr>
+	<tr><td>Estimate for all closed tickets: </td><td align="right"><b><%= @project.time_totals[:closed][:estimated] %></b> days</td></tr>
+	<tr><td>Actual for all closed tickets: </td><td align="right"><b><%= @project.time_totals[:closed][:estimated] %></b> days</td></tr>
+</table>
+
 <% @project.milestones.each do |milestone| %>
-	<h2>Milestone: <span class='identifier'><%= milestone.title %></span> <%= @project.tickets_by_milestone( milestone ).size %></h2>
-	<ul>	
+<hr />
+<div class="milestone">
+	<h2>Milestone: <span class='identifier'><%= milestone.title %></span></h2>
+	<p><small><%= pluralize_with_count_display @project.open_tickets_by_milestone( milestone ).size, 'open ticket' %></small></p>
+	<ul class="tickets">	
 	<% @project.tickets_by_milestone( milestone ).each do |ticket| %>
-		<li class="<%= ticket.state%>"><%= ticket.title %></li>
+		<li class="<%= ticket.state%> <%= "untimed" if ticket.untimed %>">
+			<a href="http://<%= Merb::Config[:lighthouse]['project_settings']['account_name'] %>.lighthouseapp.com/projects/<%= Merb::Config[:lighthouse]['project_settings']['project_id'] %>/tickets/<%= ticket.number %>" target="_lighthouse"><img src="/images/external.png", alt="link out" /></a>
+			<span class="edit"><%= ticket.title %></a>
+		</li>
 	<% end %>	
 	</ul>
-<% end %>
+	<table class="totals">
+		<tr><td>Estimate for open tickets: </td><td align="right"><b><%= @project.time_totals_by_milestone( milestone)[:open][:estimated] %></b> days</td></tr>
+		<tr><td>Estimate for closed tickets: </td><td align="right"><b><%= @project.time_totals_by_milestone( milestone)[:closed][:estimated] %></b> days</td></tr>
+		<tr><td>Actual for closed tickets: </td><td align="right"><b><%= @project.time_totals_by_milestone( milestone)[:closed][:estimated] %></b> days</td></tr>
+	</table>
 </div>
+<% end %>
+
+<hr />
+<p><small><span class="untimed">Red tickets</span> were not able to be parsed for time estimates</small></p>

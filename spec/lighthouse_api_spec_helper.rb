@@ -28,7 +28,8 @@ module LighthouseAPISpecHelper
       tickets << mock( 'Ticket',
         :title => "Ticket #{i} #{ i > 2 ? '' : "EST:#{i*0.5}d" }",
         :state => "open",
-        :assigned_user_id => 4
+        :assigned_user_id => 4,
+        :number => i * 10
       )
     end
     # Resolved tickets, last two are parsable, 3.5 days estimated, 5.5 days actual
@@ -36,7 +37,8 @@ module LighthouseAPISpecHelper
       tickets << mock( 'Ticket',
         :title => "A ticket #{i+4} #{ i < 3 ? '' : "EST:#{i*0.5}d ACT:#{(i*0.5)+1}d" }",
         :state => 'resolved',
-        :assigned_user_id => 4
+        :assigned_user_id => 4,
+        :number => i + 4 * 10
       )
     end
     tickets.sort_by { rand }

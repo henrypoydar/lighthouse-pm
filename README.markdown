@@ -16,9 +16,9 @@ if you setup your lighthouse tickets as follows:
 	Component Foo - add print CSS styles
 	Compenent Bar - spec models
 
-3.) Open tickets have estimated times, closed tickets have both estimated and actual times. For example:
+3.) Open tickets have estimated times, closed tickets have both estimated and actual times in days or fractions of days. For example:
 	
-	Component Foo - complete the Bar functionality per the FooBar story EST:4d ACT:5d
+	Component Foo - complete the Bar functionality per the FooBar story EST:4d ACT:5.5d
 
 
 ### Requirements
@@ -47,3 +47,4 @@ project with ticket-level time tracking. YMMV.
 * Finish spec'd methods
 * Add inline editing of ticket titles
 * Consider interstitial/progress indicator for initial load times
+* Support for other time units

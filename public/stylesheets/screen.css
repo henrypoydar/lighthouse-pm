@@ -12,6 +12,14 @@ body {
   text-decoration: none;
 }
 
+.edit input { 
+	font-family: Monaco, "Courier New", monospace;
+	font-size: 12px;
+	padding-right: 10px;
+}
+
+.edit { height: 18px;}
+
 #container {
   width: 80%;
   text-align: left;

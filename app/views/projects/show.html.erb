@@ -1,3 +1,7 @@
+<div style='float: right'>
+<p><a href="">Update totals</a></p>
+</div>
+
 <h1>Project: <span class='identifier'><%= @project.name %></span></h1>
 <p><small><%= pluralize_with_count_display @project.milestones.size, 'milestone' %>, <%= pluralize_with_count_display @project.open_tickets_count, 'open ticket' %></small></p>
 
@@ -6,6 +10,7 @@
 	<tr><td>Estimate for all closed tickets: </td><td align="right"><b><%= @project.time_totals[:closed][:estimated] %></b> days</td></tr>
 	<tr><td>Actual for all closed tickets: </td><td align="right"><b><%= @project.time_totals[:closed][:estimated] %></b> days</td></tr>
 </table>
+
 
 <% @project.milestones.each do |milestone| %>
 <hr />
@@ -16,7 +21,7 @@
 	<% @project.tickets_by_milestone( milestone ).each do |ticket| %>
 		<li class="<%= ticket.state%> <%= "untimed" if ticket.untimed %>">
 			<a href="http://<%= Merb::Config[:lighthouse]['project_settings']['account_name'] %>.lighthouseapp.com/projects/<%= Merb::Config[:lighthouse]['project_settings']['project_id'] %>/tickets/<%= ticket.number %>" target="_lighthouse"><img src="/images/external.png", alt="link out" /></a>
-			<span class="edit"><%= ticket.title %></a>
+			<span class="edit" style="display:inline-block;"><%= ticket.title %></span>
 		</li>
 	<% end %>	
 	</ul>

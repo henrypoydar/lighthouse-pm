@@ -1,1 +1,2 @@
 config/lighthouse.yml
+log/*.log

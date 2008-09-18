@@ -16,9 +16,12 @@ if you setup your lighthouse tickets as follows:
 	Component Foo - add print CSS styles
 	Compenent Bar - spec models
 
-3.) Open tickets have estimated times, closed tickets have both estimated and actual times in days or fractions of days. For example:
+3.) Open tickets have estimated times, closed tickets have both estimated and actual times in days or fractions of days. These values 
+should be stored in the ticket title in format of EST:Xd for estimated times and ACT:Xd for actual times. For example:
 	
 	Component Foo - complete the Bar functionality per the FooBar story EST:4d ACT:5.5d
+
+Only actual times for closed tickets will be aggregated.
 
 
 ### Requirements

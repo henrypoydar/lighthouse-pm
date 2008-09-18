@@ -18,7 +18,7 @@ body {
 	padding-right: 10px;
 }
 
-.edit { height: 18px;}
+.edit { height: 18px; cursor: text; }
 
 #container {
   width: 80%;
@@ -49,7 +49,10 @@ background: #f2f2f2 url(/images/ticket_bg.gif) repeat-x top left;
 ul.tickets li:hover { 
 background-color: #fff;
 background-image: none;	
+cursor:move;
 }
+
+
 
 div.milestone { margin-bottom: 15px; display: block;}
 

@@ -1,7 +1,7 @@
 Lighthouse PM
 --------------
 
-A merb app for adding some rudimentary project management oversight and insight to Lighthouse tickets. Essentially
+A quick/dirty merb app for adding some rudimentary project management oversight and insight to Lighthouse tickets. Essentially
 produces a single web page with milestone summaries that include brief ticket listings and estimated and actual 
 development times. Also allows for inline changing of ticket titles.
 

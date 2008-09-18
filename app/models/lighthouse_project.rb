@@ -1,3 +1,6 @@
+class TicketStruct < Struct.new( :number, :title, :state, :estimated, :actual, :assigned_to_id, :assigned_to_name, :milestone_index, :untimed ); end
+class MilestoneStruct < Struct.new( :index, :title ); end
+
 # Wraps some of the API functionality so that
 # we don't have sorting code and similar behavior 
 # living in views
@@ -11,8 +14,7 @@ class LighthouseProject
     gather_tickets_and_milestones
   end 
   
-  class TicketStruct < Struct.new( :number, :title, :state, :estimated, :actual, :assigned_to, :milestone_index, :untimed ); end
-  class MilestoneStruct < Struct.new( :index, :title ); end
+
   
   
   %w( name open_tickets_count ).each do |api_method|
@@ -54,6 +56,7 @@ class LighthouseProject
            LighthouseProject.parse_estimated_time( t.title ),
            LighthouseProject.parse_actual_time( t.title ),
            t.assigned_user_id,
+           LighthouseProject.get_lighthouse_user_name(t.assigned_user_id ),
            m.index,
            ( LighthouseProject.parse_estimated_time( t.title ) == 0.0 && LighthouseProject.parse_actual_time( t.title ) == 0.0 ) 
          ) 
@@ -73,6 +76,7 @@ class LighthouseProject
     gather_tickets_and_milestones
   end
   
+
   def sum_estimated_and_actual_times( ticket_collection )
     
       open_estimated = closed_estimated = closed_actual = 0.0
@@ -93,6 +97,14 @@ class LighthouseProject
   
   end
   
+  # TODO: Get this out of this model ...
+  def self.get_lighthouse_user_name( user_id )
+    begin
+      name = Lighthouse::User.find( user_id ).name
+    rescue
+      name = '--'
+    end
+  end
 
   def self.parse_estimated_time( title )
     ( title.match(/EST:(.*?)d/) || [0,0] )[1].to_s.to_f

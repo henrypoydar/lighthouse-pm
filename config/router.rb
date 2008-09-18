@@ -21,6 +21,7 @@
 
 Merb.logger.info("Compiling routes...")
 Merb::Router.prepare do |r|
+  
   # RESTful routes
   # r.resources :posts
   
@@ -35,4 +36,5 @@ Merb::Router.prepare do |r|
   
   # Change this for your home page to be available at /
   r.match('/').to(:controller => 'projects', :action =>'show')
+  
 end

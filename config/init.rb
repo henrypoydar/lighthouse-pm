@@ -42,6 +42,7 @@ $KCODE = 'UTF8'
 #Merb.push_path(:lib, Merb.root / "lib") # uses **/*.rb as path glob.
 
 require(File.dirname(__FILE__) + "/../lib/lighthouse-api/lib/lighthouse.rb")
+require(File.dirname(__FILE__) + "/../lib/lighthouse-api-wrappers.rb")
 
 # ==== Dependencies
 

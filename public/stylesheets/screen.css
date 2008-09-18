@@ -44,6 +44,7 @@ height: 28px;
 border-top: 1px solid #e1e1e1;
 padding: 0 10px;
 background: #f2f2f2 url(/images/ticket_bg.gif) repeat-x top left;
+display: block;
 }
 
 ul.tickets li:hover { 

@@ -1,6 +1,3 @@
-class TicketStruct < Struct.new( :number, :title, :state, :estimated, :actual, :assigned_to_id, :assigned_to_name, :milestone_index, :untimed ); end
-class MilestoneStruct < Struct.new( :index, :title ); end
-
 # Wraps some of the API functionality so that
 # we don't have sorting code and similar behavior 
 # living in views
@@ -15,8 +12,6 @@ class LighthouseProject
   end 
   
 
-  
-  
   %w( name open_tickets_count ).each do |api_method|
     define_method(api_method) { @project.send("#{api_method}") }
   end
@@ -24,15 +19,24 @@ class LighthouseProject
   def sorted_milestones
     @project_milestones
   end
-  alias_method :milestones,  :sorted_milestones
+  alias_method :milestones, :sorted_milestones
   
+  
+  def sorted_users
+    @project_users.uniq.sort_by { |u| u.name }
+  end
+  alias_method :users, :sorted_users
   
   def tickets_by_milestone( milestone )
     @project_tickets.reject { |t| t.milestone_index != milestone.index }
   end
   
+  def tickets
+    @project.tickets
+  end
+  
   def open_tickets_by_milestone( milestone )
-    @project_tickets.reject { |t| ( t.milestone_index != milestone.index || t.state == 'resolved' ) }
+    @project_tickets.reject { |t| ( t.milestone_index != milestone.index || t.state == 'resolved' ) }.sort_by { |t| t.title.downcase }
   end
   
   def time_totals_by_milestone( milestone )
@@ -46,25 +50,27 @@ class LighthouseProject
 
   def gather_tickets_and_milestones
     @project_tickets = []
-    @project_milestones = @project.milestones.sort_by { |m| m.due_on || Time.now + 5.years }.to_enum(:each_with_index).map { |m,i| MilestoneStruct.new( i, m.title ) }
+    @project_users = []
+    @project_milestones = @project.milestones.sort_by { |m| m.due_on || Time.now + 5.years }.to_enum(:each_with_index).map { |m,i| MilestoneStruct.new( m.id, m.title, i ) }
     @project_milestones.each do |m| 
-      @project.tickets( :q => "milestone:\"#{m.title}\"").sort_by { |t| [ t.state, t.title.downcase ] }.each do |t|
+      @project.tickets( :q => "milestone:\"#{m.title}\"").sort_by { |t| [ ( t.state == 'resolved' ? 1 : 0 ), t.title.downcase ] }.each do |t|
         @project_tickets << TicketStruct.new( 
            t.number,
+           m.lighthouse_id,
+           m.index,
            t.title,
            t.state,
            LighthouseProject.parse_estimated_time( t.title ),
            LighthouseProject.parse_actual_time( t.title ),
            t.assigned_user_id,
-           LighthouseProject.get_lighthouse_user_name(t.assigned_user_id ),
-           m.index,
            ( LighthouseProject.parse_estimated_time( t.title ) == 0.0 && LighthouseProject.parse_actual_time( t.title ) == 0.0 ) 
          ) 
+        @project_users << UserStruct.new( t.assigned_user_id, LighthouseProject.get_lighthouse_user_name(t.assigned_user_id ) ) unless t.assigned_user_id.nil?
       end
     end
   end
 
-
+  # TODO: move the authentication elsewheres
   def authenticate_and_retrieve_project
     begin
       Lighthouse.account = @api_access_options[:account_name] || ''

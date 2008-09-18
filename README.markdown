@@ -3,7 +3,8 @@ Lighthouse PM
 
 A quick/dirty merb app for adding some rudimentary project management oversight and insight to Lighthouse tickets. Essentially
 produces a single web page with milestone summaries that include brief ticket listings and estimated and actual 
-development times. Also allows for inline changing of ticket titles.
+development times. Allows for quick inline editing of ticket titles and assigned user from this single page.  Also allows for dragging tickets to
+other milestones.
 
 Assumes you are using Lighthouse to track development tasks, perhaps in addition to bugs issues. Works best
 if you setup your lighthouse tickets as follows:
@@ -47,7 +48,6 @@ some basic time tracking at the the ticket level. So here it is, a single web pa
 project with ticket-level time tracking. YMMV.
 
 ### TODO:
-* Finish spec'd methods
-* Add inline editing of ticket titles
+* Move initial connection out of the lighthouse_project model
 * Consider interstitial/progress indicator for initial load times
 * Support for other time units

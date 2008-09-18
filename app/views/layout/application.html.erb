@@ -10,7 +10,10 @@
 
 	<script type="text/javascript">
 		$(document).ready(function() {
-			$(".edit").editable("/tickets/edit");
+			$(".edit").editable("/tickets/update", {
+				indicator : "Saving...",
+				tooltip   : 'Click to edit...'
+			});
 		});
 	</script>
 

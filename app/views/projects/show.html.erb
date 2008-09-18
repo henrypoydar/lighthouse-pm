@@ -21,7 +21,7 @@
 	<% @project.tickets_by_milestone( milestone ).each do |ticket| %>
 		<li class="<%= ticket.state%> <%= "untimed" if ticket.untimed %>">
 			<a href="http://<%= Merb::Config[:lighthouse]['project_settings']['account_name'] %>.lighthouseapp.com/projects/<%= Merb::Config[:lighthouse]['project_settings']['project_id'] %>/tickets/<%= ticket.number %>" target="_lighthouse"><img src="/images/external.png", alt="link out" /></a>
-			<span class="edit" style="display:inline-block;"><%= ticket.title %></span>
+			<span class="edit" id="<%= ticket.number %>" style="display:inline-block;"><%= ticket.title %></span>
 		</li>
 	<% end %>	
 	</ul>

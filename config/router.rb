@@ -24,7 +24,8 @@ Merb::Router.prepare do |r|
   # RESTful routes
   # r.resources :posts
   
-  r.resources :project
+  r.resources :projects
+  r.resources :tickets
 
   # This is the default route for /:controller/:action/:id
   # This is fine for most cases.  If you're heavily using resource-based

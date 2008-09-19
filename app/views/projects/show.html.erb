@@ -39,8 +39,10 @@ $(document).ready(function() {
 		$(this).hide();
 		$('img.progress').fadeIn('slow');
     });
-	$('a.toggle_resolved').click( function() {
+	$('a.toggle_closed').click( function() {
 		$(this).parent().parent().find('li.resolved').toggle();
+		$(this).parent().parent().find('li.hold').toggle();
+		$(this).parent().parent().find('li.invalid').toggle();
 		return false;
 	});
 	
@@ -60,7 +62,7 @@ $(document).ready(function() {
 		<tr><td colspan="2" class="no_border"><i>Totals:</i></td></tr>
 		<tr><td>Estimate for all open tickets: </td><td align="right"><b><%= @project.time_totals[:open][:estimated] %></b> days</td></tr>
 		<tr><td>Estimate for all closed tickets: </td><td align="right"><b><%= @project.time_totals[:closed][:estimated] %></b> days</td></tr>
-		<tr><td>Actual for all closed tickets: </td><td align="right"><b><%= @project.time_totals[:closed][:estimated] %></b> days</td></tr>
+		<tr><td>Actual for all closed tickets: </td><td align="right"><b><%= @project.time_totals[:closed][:actual] %></b> days</td></tr>
 		<tr><td>Un-timed tickets: </td><td align="right"><b><%= @project.untimed_tickets %></b></td></tr>
 	</table>
 	<table class="totals">
@@ -90,7 +92,7 @@ $(document).ready(function() {
 			<a href="http://<%= Merb::Config[:lighthouse]['project_settings']['account_name'] %>.lighthouseapp.com/projects/<%= Merb::Config[:lighthouse]['project_settings']['project_id'] %>/tickets/<%= ticket.number %>" target="_lighthouse"><img src="/images/external.png", alt="link out" /></a>
 			<span class="ticket_number"><%= ticket.number %></span>
 			<span class="edit" id="<%= ticket.number %>" style="display:inline-block;"><%= ticket.title %></span>
-			[<%= ticket.state %>]
+			<span class="state"><%= ticket.state %></state>
 			<span class="assigned_to">
 				<select title="<%= ticket.number %>" class="user_selection" id="select_<%= ticket.number %>">
 					<%= @project.users.map { |u| "<option value=\"#{u.lighthouse_id}\"#{ " selected" if u.lighthouse_id == ticket.assigned_to_id }>#{u.name}</option>" }.join("\n") %>
@@ -100,13 +102,13 @@ $(document).ready(function() {
 		</li>
 	<% end %>	
 	</ul>
-	<p <%= "style=\"display:none;\"" if @project.tickets_by_milestone( milestone ).size == @project.open_tickets_by_milestone( milestone ).size %>><a href="" class="toggle_resolved"><small>Toggle resolved tickets</small></a></p>
+	<p <%= "style=\"display:none;\"" if @project.tickets_by_milestone( milestone ).size == @project.open_tickets_by_milestone( milestone ).size %>><a href="" class="toggle_closed"><small>Toggle closed tickets</small></a></p>
 	<div class="totals_container clearfix">
 		<table class="totals">
 			<tr><td colspan="2" class="no_border"><i>Totals:</i></td></tr>
 			<tr><td>Estimate for open tickets: </td><td align="right"><b><%= @project.time_totals_by_milestone( milestone)[:open][:estimated] %></b> days</td></tr>
 			<tr><td>Estimate for closed tickets: </td><td align="right"><b><%= @project.time_totals_by_milestone( milestone)[:closed][:estimated] %></b> days</td></tr>
-			<tr><td>Actual for closed tickets: </td><td align="right"><b><%= @project.time_totals_by_milestone( milestone)[:closed][:estimated] %></b> days</td></tr>
+			<tr><td>Actual for closed tickets: </td><td align="right"><b><%= @project.time_totals_by_milestone( milestone)[:closed][:actual] %></b> days</td></tr>
 			<tr><td>Un-timed tickets: </td><td align="right"><b><%= @project.untimed_tickets_by_milestone( milestone ) %></b></td></tr>
 		</table>
 		<table class="totals">

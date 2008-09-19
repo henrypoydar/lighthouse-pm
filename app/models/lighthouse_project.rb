@@ -74,7 +74,7 @@ class LighthouseProject
     @project_users = []
     @project_milestones = @project.milestones.sort_by { |m| m.due_on || Time.now + 5.years }.to_enum(:each_with_index).map { |m,i| MilestoneStruct.new( m.id, m.title, i ) }
     @project_milestones.each do |m| 
-      @project.tickets( :q => "milestone:\"#{m.title}\"").sort_by { |t| [ ( t.state == 'resolved' ? 1 : 0 ), t.title.downcase ] }.each do |t|
+      @project.tickets( :q => "milestone:\"#{m.title}\"").sort_by { |t| [ ( ( t.state == 'resolved' || t.state == 'hold' || t.state == 'invalid' ) ? 1 : 0 ), t.title.downcase ] }.each do |t|
         @project_tickets << TicketStruct.new( 
            t.number,
            m.lighthouse_id,

@@ -55,7 +55,7 @@ background-image: none;
 cursor:move;
 }
 
-ul.tickets li.resolved { display:none; }
+ul.tickets li.resolved, ul.tickets li.hold, ul.tickets li.invalid { display:none; }
 
 
 div.milestone { margin-bottom: 15px; display: block;}
@@ -63,8 +63,10 @@ div.milestone { margin-bottom: 15px; display: block;}
 table.totals { margin: 10px 0; }
 table.totals td { padding-right: 5px; }
 
-ul.tickets li.resolved { text-decoration: line-through; }
+ul.tickets li.resolved .edit, ul.tickets li.hold .edit, ul.tickets li.invalid .edit  { text-decoration: line-through; }
+ul.tickets li.resolved .edit input, ul.tickets li.hold .edit input, ul.tickets li.invalid .edit input  { text-decoration: none; }
 .untimed { color: #990000; }
+.state { color: #999; }
 
 p, ul { margin: 5px 0; }
 

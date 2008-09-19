@@ -28,11 +28,7 @@ describe LighthouseProject do
   
   describe '#tickets_by_milestone' do
     
-    it "should provide a list of tickets for each milestone ordered by state then by name" do
-      puts @lighthouse_project.tickets.map{ |t| t.title + "(#{t.state})(#{t.milestone_index})" }.join(' | ')
-      puts "--"
-      puts @lighthouse_project.tickets_by_milestone( @lighthouse_project.milestones.first ).map{ |t| t.title + "(#{t.state})(#{t.milestone_index})" }.join(' | ')
-      
+    it "should provide a list of tickets for each milestone ordered by state then by name" do      
       @lighthouse_project.tickets_by_milestone( @lighthouse_project.milestones.first ).first.title.should == "Ticket 1 EST:0.5d"
       @lighthouse_project.tickets_by_milestone( @lighthouse_project.milestones.first ).last.title.should == "A ticket 8 EST:2.0d ACT:3.0d"
     end
@@ -47,6 +43,21 @@ describe LighthouseProject do
     
   end
   
+  describe '#untimed_tickets_by_milestone' do
+    
+    it "should provide the number of tickets that could not be parsed for time by milestone" do
+      @lighthouse_project.untimed_tickets_by_milestone( @lighthouse_project.milestones.first ).should == 4
+    end
+    
+  end
+  
+  describe '#untimed_tickets' do
+
+    it "should provide the number of tickets that could not be parsed for time" do
+      @lighthouse_project.untimed_tickets.should == 20
+    end
+
+  end
   
   describe '#open_tickets_by_milestone' do
     

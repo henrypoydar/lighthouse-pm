@@ -39,12 +39,17 @@ $(document).ready(function() {
 		$(this).hide();
 		$('img.progress').fadeIn('slow');
     });
+	$('a.toggle_resolved').click( function() {
+		$(this).parent().parent().find('li.resolved').toggle();
+		return false;
+	});
+	
 });
 </script>
 <% end %>
 
 <div style="float: right; text-align:right;">
-<p><a href="" class="waiting">Update totals</a><img class="progress" style="display:none;" src="/images/progress.gif", alt="" /></p>
+<p><a href="" class="progress">Update totals</a><img class="progress" style="display:none;" src="/images/progress.gif", alt="" /></p>
 </div>
 
 <h1>Project: <span class='identifier'><%= @project.name %></span></h1>
@@ -54,12 +59,13 @@ $(document).ready(function() {
 	<tr><td>Estimate for all open tickets: </td><td align="right"><b><%= @project.time_totals[:open][:estimated] %></b> days</td></tr>
 	<tr><td>Estimate for all closed tickets: </td><td align="right"><b><%= @project.time_totals[:closed][:estimated] %></b> days</td></tr>
 	<tr><td>Actual for all closed tickets: </td><td align="right"><b><%= @project.time_totals[:closed][:estimated] %></b> days</td></tr>
+	<tr><td>Un-timed tickets: </td><td align="right"><b><%= @project.untimed_tickets %></b></td></tr>
 </table>
 
 
 <% @project.milestones.each do |milestone| %>
 <hr />
-<div class="milestone">
+<div class="milestone" id="milestone_<%= milestone.index %>_container">
 	<h2>Milestone: <span class='identifier'><%= milestone.title %></span></h2>
 	<p><small><%= pluralize_with_count_display @project.open_tickets_by_milestone( milestone ).size, 'open ticket' %></small></p>
 	<ul id="milestone_<%= milestone.index %>" title="lighthouse_milestone_<%= milestone.lighthouse_id %>" class="tickets">	
@@ -67,18 +73,22 @@ $(document).ready(function() {
 		<li id="ticket_<%= ticket.number %>" class="<%= ticket.state%> <%= "untimed" if ticket.untimed %>">
 			<a href="http://<%= Merb::Config[:lighthouse]['project_settings']['account_name'] %>.lighthouseapp.com/projects/<%= Merb::Config[:lighthouse]['project_settings']['project_id'] %>/tickets/<%= ticket.number %>" target="_lighthouse"><img src="/images/external.png", alt="link out" /></a>
 			<span class="edit" id="<%= ticket.number %>" style="display:inline-block;"><%= ticket.title %></span>
+			[<%= ticket.state %>]
 			<span class="assigned_to">
 				<select title="<%= ticket.number %>" class="user_selection" id="select_<%= ticket.number %>">
 					<%= @project.users.map { |u| "<option value=\"#{u.lighthouse_id}\"#{ " selected" if u.lighthouse_id == ticket.assigned_to_id }>#{u.name}</option>" }.join("\n") %>
 				</select>
 			</span>
+			<span class='print_only'><small><%= @project.users.map { |u| u.name if u.lighthouse_id == ticket.assigned_to_id }.join('') %></small></span>
 		</li>
 	<% end %>	
 	</ul>
+	<p <%= "style=\"\"" if @project.tickets_by_milestone( milestone ).size > @project.open_tickets_by_milestone( milestone ).size %>><a href="" class="toggle_resolved"><small>Toggle resolved tickets</small></a></p>
 	<table class="totals">
 		<tr><td>Estimate for open tickets: </td><td align="right"><b><%= @project.time_totals_by_milestone( milestone)[:open][:estimated] %></b> days</td></tr>
 		<tr><td>Estimate for closed tickets: </td><td align="right"><b><%= @project.time_totals_by_milestone( milestone)[:closed][:estimated] %></b> days</td></tr>
 		<tr><td>Actual for closed tickets: </td><td align="right"><b><%= @project.time_totals_by_milestone( milestone)[:closed][:estimated] %></b> days</td></tr>
+		<tr><td>Un-timed tickets: </td><td align="right"><b><%= @project.untimed_tickets_by_milestone( milestone ) %></b></td></tr>
 	</table>
 </div>
 <% end %>

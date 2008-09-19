@@ -1,0 +1,13 @@
+body {
+font-family: Verdana, sans-serif;
+font-size: 11px;
+line-height: 16px;
+color: #000;
+}
+
+h1 { font-size: 16px; }
+h2 { font-size: 15px; }
+h3 { font-size: 14px; }
+h4 { font-size: 13px; }
+
+a, select { display: none; }

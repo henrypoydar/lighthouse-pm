@@ -12,6 +12,8 @@ body {
   text-decoration: none;
 }
 
+.print_only { display: none; }
+
 .edit input { 
 	font-family: Monaco, "Courier New", monospace;
 	font-size: 12px;
@@ -53,6 +55,7 @@ background-image: none;
 cursor:move;
 }
 
+ul.tickets li.resolved { display:none; }
 
 
 div.milestone { margin-bottom: 15px; display: block;}

@@ -1,10 +1,15 @@
 Lighthouse PM
 --------------
 
-A quick/dirty merb app for adding some rudimentary project management oversight and insight to Lighthouse tickets. Essentially
-produces a single web page with milestone summaries that include brief ticket listings and estimated and actual 
-development times. Allows for quick inline editing of ticket titles and assigned user from this single page.  Also allows for dragging tickets to
-other milestones.
+A quick/dirty merb app for adding some rudimentary project management oversight and insight to Lighthouse tickets. 
+
+* Produces a single page with every milestone and ticket for a project
+* Sums up estimated and actual development time per milestone and for the project as a whole
+* Allows for quick inline editing of ticket titles
+* Allows tickets to be dragged/dropped between milestones
+* Allows for inline re-assignment of tickets via a dropdown 
+* Has a formatted style sheet for printing the full ticket list
+
 
 Assumes you are using Lighthouse to track development tasks, perhaps in addition to bugs issues. Works best
 if you setup your lighthouse tickets as follows:

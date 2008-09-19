@@ -31,6 +31,14 @@ class LighthouseProject
     @project_tickets.reject { |t| t.milestone_index != milestone.index }
   end
   
+  def untimed_tickets_by_milestone( milestone )
+    @project_tickets.reject { |t| t.milestone_index != milestone.index }.reject { |t| !t.untimed }.size
+  end
+  
+  def untimed_tickets
+    @project_tickets.reject { |t| !t.untimed }.size
+  end
+
   def tickets
     @project.tickets
   end
@@ -103,6 +111,7 @@ class LighthouseProject
   
   end
   
+
   # TODO: Get this out of this model ...
   def self.get_lighthouse_user_name( user_id )
     begin

@@ -43,6 +43,22 @@ describe LighthouseProject do
     
   end
   
+  describe '#tickets_by_user' do
+    
+    it "should provide a list of tickets by user" do
+      @lighthouse_project.tickets_by_user( @lighthouse_project.users.first ).size.should == 10
+    end
+    
+  end
+  
+  describe '#tickets_by_milestone_and_user' do
+    
+    it "should provide a list of tickets by milestone and user" do
+      @lighthouse_project.tickets_by_milestone_and_user( @lighthouse_project.milestones.first, @lighthouse_project.users.first ).size.should == 2
+    end
+    
+  end
+  
   describe '#untimed_tickets_by_milestone' do
     
     it "should provide the number of tickets that could not be parsed for time by milestone" do
@@ -77,12 +93,34 @@ describe LighthouseProject do
   
   end
   
+  
+  describe '#time_totals_by_milestone_and_user' do
+    
+    it "should provide a hash of estimated and actual totals for tickets by milestone and user" do
+      @lighthouse_project.time_totals_by_milestone_and_user( @lighthouse_project.milestones.first, @lighthouse_project.users.first )[:open][:estimated].should == 0.5
+      @lighthouse_project.time_totals_by_milestone_and_user( @lighthouse_project.milestones.first, @lighthouse_project.users.first )[:closed][:estimated].should == 0.0
+      @lighthouse_project.time_totals_by_milestone_and_user( @lighthouse_project.milestones.first, @lighthouse_project.users.last )[:closed][:actual].should == 2.5
+    end
+  
+  end
+  
   describe '#time_totals' do
     
     it "should provide a hash of estimated and actual totals for all tickets" do
       @lighthouse_project.time_totals[:open][:estimated].should == 1.5 * 5
       @lighthouse_project.time_totals[:closed][:estimated].should == 3.5 * 5
       @lighthouse_project.time_totals[:closed][:actual].should == 5.5 * 5
+    end
+    
+  end
+  
+  
+  describe '#time_totals_by_user' do
+    
+    it "should provide a hash of estimated and actual totals for all tickets by user" do
+      @lighthouse_project.time_totals_by_user( @lighthouse_project.users.first )[:open][:estimated].should == 0.5 * 5
+      @lighthouse_project.time_totals_by_user( @lighthouse_project.users.first )[:closed][:estimated].should == 0.0 * 5
+      @lighthouse_project.time_totals_by_user( @lighthouse_project.users.last )[:closed][:actual].should == 2.5 * 5
     end
     
   end

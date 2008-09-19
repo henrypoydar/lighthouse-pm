@@ -138,6 +138,9 @@ use_template_engine :erb
 # if you want to know more.
 Merb::Config.use do |c|
 
+
+  c[:log_file] = Merb.root + "/log/merb.log"
+
   # Sets up a custom session id key which is used for the session persistence
   # cookie name.  If not specified, defaults to '_session_id'.
   # c[:session_id_key] = '_session_id'

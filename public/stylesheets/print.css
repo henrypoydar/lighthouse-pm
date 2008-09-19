@@ -13,3 +13,22 @@ h4 { font-size: 13px; }
 a, select { display: none; }
 
 ul.tickets li.resolved { text-decoration: line-through; }
+
+table.totals { float: left; display: inline; margin-right: 10%; border: 1px; }
+
+/* clearfix */
+
+.clearfix:after {
+content: ".";
+display: block;
+height: 0;
+clear: both;
+visibility: hidden;
+}
+ 
+.clearfix {
+display: inline-block;
+}
+.clearfix {
+display: block;
+}

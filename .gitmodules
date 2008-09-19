@@ -1,3 +1,3 @@
 [submodule "lib/lighthouse-api"]
 	path = lib/lighthouse-api
-	url = git://github.com/guitsaru/lighthouse-api.git
+	url = git://github.com/hpoydar/lighthouse-api.git

@@ -11,6 +11,15 @@ module LighthouseAPISpecHelper
   
   end
   
+  def mock_users
+    users = []
+    users << mock( 'User', :lighthouse_id => 1, :name => 'Tom' )
+    users << mock( 'User', :lighthouse_id => 2, :name => 'Dick' )
+    users << mock( 'User', :lighthouse_id => 3, :name => 'Harry' )
+    users.sort_by { rand }
+  end
+  
+  
   def mock_milestones
     milestones = []
     for i in 1..5 do
@@ -30,7 +39,7 @@ module LighthouseAPISpecHelper
       tickets << mock( 'Ticket',
         :title => "Ticket #{i} #{ i > 2 ? '' : "EST:#{i*0.5}d" }",
         :state => "open",
-        :assigned_user_id => 4,
+        :assigned_user_id => ( i > 3 ? nil : i ),
         :number => i * 10,
         :milestone_index => 0
       )
@@ -40,7 +49,7 @@ module LighthouseAPISpecHelper
       tickets << mock( 'Ticket',
         :title => "A ticket #{i+4} #{ i < 3 ? '' : "EST:#{i*0.5}d ACT:#{(i*0.5)+1}d" }",
         :state => 'resolved',
-        :assigned_user_id => 4,
+        :assigned_user_id => ( i > 3 ? nil : i ),
         :number => i + 4 * 10,
         :milestone_index => 0
       )

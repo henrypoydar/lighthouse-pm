@@ -11,7 +11,6 @@ class LighthouseProject
     gather_tickets_and_milestones
   end 
   
-
   %w( name open_tickets_count ).each do |api_method|
     define_method(api_method) { @project.send("#{api_method}") }
   end
@@ -31,16 +30,20 @@ class LighthouseProject
     @project_tickets.reject { |t| t.milestone_index != milestone.index }
   end
   
+  def tickets_by_user( user )
+    @project_tickets.reject { |t| t.assigned_to_id != user.lighthouse_id }
+  end
+  
+  def tickets_by_milestone_and_user( milestone, user )
+    @project_tickets.reject { |t| t.milestone_index != milestone.index }.reject { |t| t.assigned_to_id != user.lighthouse_id }
+  end
+  
   def untimed_tickets_by_milestone( milestone )
     @project_tickets.reject { |t| t.milestone_index != milestone.index }.reject { |t| !t.untimed }.size
   end
   
   def untimed_tickets
     @project_tickets.reject { |t| !t.untimed }.size
-  end
-
-  def tickets
-    @project.tickets
   end
   
   def open_tickets_by_milestone( milestone )
@@ -51,9 +54,19 @@ class LighthouseProject
     sum_estimated_and_actual_times( tickets_by_milestone( milestone ) )
   end
   
+  def time_totals_by_milestone_and_user( milestone, user )
+    sum_estimated_and_actual_times( tickets_by_milestone_and_user( milestone, user ) )
+  end
+  
+  
   def time_totals
     sum_estimated_and_actual_times( @project_tickets )
   end
+  
+  def time_totals_by_user( user )
+    sum_estimated_and_actual_times( tickets_by_user( user ) )
+  end
+  
 
 
   def gather_tickets_and_milestones

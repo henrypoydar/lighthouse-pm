@@ -11,3 +11,5 @@ h3 { font-size: 14px; }
 h4 { font-size: 13px; }
 
 a, select { display: none; }
+
+ul.tickets li.resolved { text-decoration: line-through; }

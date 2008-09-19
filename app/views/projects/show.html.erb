@@ -83,7 +83,7 @@ $(document).ready(function() {
 		</li>
 	<% end %>	
 	</ul>
-	<p <%= "style=\"\"" if @project.tickets_by_milestone( milestone ).size > @project.open_tickets_by_milestone( milestone ).size %>><a href="" class="toggle_resolved"><small>Toggle resolved tickets</small></a></p>
+	<p <%= "style=\"display:none;\"" if @project.tickets_by_milestone( milestone ).size == @project.open_tickets_by_milestone( milestone ).size %>><a href="" class="toggle_resolved"><small>Toggle resolved tickets</small></a></p>
 	<table class="totals">
 		<tr><td>Estimate for open tickets: </td><td align="right"><b><%= @project.time_totals_by_milestone( milestone)[:open][:estimated] %></b> days</td></tr>
 		<tr><td>Estimate for closed tickets: </td><td align="right"><b><%= @project.time_totals_by_milestone( milestone)[:closed][:estimated] %></b> days</td></tr>

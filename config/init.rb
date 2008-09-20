@@ -69,6 +69,11 @@ require(File.dirname(__FILE__) + "/../lib/lighthouse-api-wrappers.rb")
 # Specify a specific version of a dependency
 # dependency "RedCloth", "> 3.0"
 
+#Gem.clear_paths
+#Gem.path.unshift(Merb.root / "gems")
+
+dependencies "activesupport" => "= 2.0.4", "activeresource" => "= 2.0.4"
+
 # Specify more than one dependency at a time as well as the version:
 # dependencies "RedCloth" => "> 3.0", "BlueCloth" => "= 1.0.0"
 

@@ -1,2 +1,3 @@
 config/lighthouse.yml
 log/*.log
+/gems/doc
